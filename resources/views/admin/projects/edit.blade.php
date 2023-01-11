@@ -3,8 +3,9 @@
 @section('content')
 @include('partials.errors')
 <h1 class="mt-4">Edit Project!</h1>
-<form action="{{route('admin.projects.store')}}" method="post">
+<form action="{{route('admin.projects.update', $project->id)}}" method="post">
     @csrf
+    @method('PUT')
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control" placeholder="Add title" aria-describedby="titleHelper" value="{{old('title', $project->title)}}">

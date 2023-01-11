@@ -57,7 +57,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -84,9 +84,9 @@ class ProjectController extends Controller
         $project_slug = Str::slug($val_data['title']);
         $val_data['slug'] = $project_slug;
 
-        $project = Project::create($val_data);
+        $project->update($val_data);
 
-        return to_route('admin.projects.index')->with('message', "$project->slug added successfully");
+        return to_route('admin.projects.index')->with('message', "$project->title added successfully");
     }
 
     /**
@@ -97,7 +97,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return to_route('admin.projects.index')->with('message', "$project->title deleted successfully");
     }
 
     private function validation($data)
