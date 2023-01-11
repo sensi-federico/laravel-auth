@@ -1,8 +1,11 @@
-extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-<a href="{{route('admin.projects.create')}}" class="btn btn-primary position-fixed bottom-0 m-3" role="button">Add Project</a>
-<div class="table-responsive pt-5">
+
+<div class="table-responsive pt-4">
+    <div class="d-flex justify-content-end">
+        <a href="{{route('admin.projects.create')}}" class="btn btn-primary mb-3" role="button">Add Project</a>
+    </div>
     <table class="table table-striped
       table-hover	
       table-borderless
@@ -13,7 +16,7 @@ extends('layouts.app')
             <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Date Create</th>
+                <th>Overview</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,7 +25,7 @@ extends('layouts.app')
             <tr class="table-primary">
                 <td scope="row">{{$project->id}}</td>
                 <td>{{$project->title}}</td>
-                <td>{{$project->date}}</td>
+                <td>{{$project->overview}}</td>
                 <td>
                     <a href=""></a>
                     <a href=""></a>
