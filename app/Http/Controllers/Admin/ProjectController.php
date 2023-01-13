@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -40,13 +41,18 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        // dd($request->cover);
         $val_data = $this->validation($request->all());
+
         $project_slug = Str::slug($val_data['title']);
         $val_data['slug'] = $project_slug;
 
+        $cover = Storage::disk('public')->put('project_img', $request->cover);
+        $val_data['cover'] = $cover;
+
         $project = Project::create($val_data);
 
-        return to_route('admin.projects.index')->with('message', "$project->slug added successfully");
+        return to_route('admin.projects.index')->with('message', "$project->title added successfully");
     }
 
     /**
@@ -102,17 +108,19 @@ class ProjectController extends Controller
         return to_route('admin.projects.index')->with('message', "$project->title deleted successfully");
     }
 
+
+
     private function validation($data)
     {
         // Validator::make($data, $rules, $message)
         $validator = Validator::make($data, [
             'title' => 'required|min:5|max:100',
             'overview' => 'nullable',
+            'cover' => 'nullable|image|max:500'
         ], [
             'title.required' => 'Il titolo é obbligatorio',
             'title.min' => 'Il titolo deve essere almeno :min caratteri',
-            'title.max' => 'Il titolo deve essere almeno :max caratteri',
-
+            'title.max' => 'Il titolo deve essere almeno :max caratteri'
         ])->validate();
 
         return $validator;
