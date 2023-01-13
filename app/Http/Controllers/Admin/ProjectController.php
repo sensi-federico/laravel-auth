@@ -47,7 +47,8 @@ class ProjectController extends Controller
         $project_slug = Str::slug($val_data['title']);
         $val_data['slug'] = $project_slug;
 
-        $cover = Storage::disk('public')->put('project_img', $request->cover);
+        $cover = Storage::disk('public')->put('placeholders', $request->cover);
+        // dd($cover);
         $val_data['cover'] = $cover;
 
         $project = Project::create($val_data);

@@ -26,7 +26,7 @@
                 <td scope="row">{{$project->id}}</td>
                 <td>{{$project->title}}</td>
                 <td>
-                    <img src="{{asset('storage/' . $project->cover )}}" alt="">
+                    <img src="{{asset('storage/' . $project->cover )}}" alt="" width="80px">
                 </td>
                 <td>{{$project->overview}}</td>
                 <td class="d-flex flex-column">
