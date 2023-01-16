@@ -20,6 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::orderByDesc('id')->get();
+        //dd
         return view('admin.projects.index', compact('projects'));
     }
 
